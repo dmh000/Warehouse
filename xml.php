@@ -4,17 +4,17 @@
 
 $xml="<xml>
     <ToUserName>
-        <![CDATA[gh_faf604313ad3]]>
+        <![CDATA[%s]]>
     </ToUserName>
     <FromUserName>
-        <![CDATA[oZGxk55rBCIcGeDfdrsn3JAsBrTA]]>
+        <![CDATA[%s]]>
     </FromUserName>
     <CreateTime>1551573479</CreateTime>
     <MsgType>
         <![CDATA[text]]>
     </MsgType>
     <Content>
-        <![CDATA[888]]>
+        <![CDATA[%s]]>
     </Content>
     <MsgId>22213191603833441</MsgId>
 </xml>";

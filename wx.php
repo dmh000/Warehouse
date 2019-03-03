@@ -5,7 +5,7 @@
 
 
 $wx = new wx();
- echo $this->checkSignature();
+ //echo $this->checkSignature();
 class wx {
 
 	 //和公众平台约定好的token值
@@ -22,25 +22,23 @@ class wx {
 		if ($_GET["echostr"]) {   //有此参数就执行验证
 			echo $this->checkSignature();
 	 	}else{
-			/*获取原始数据
-			$xml = file_get_contents('php:input');
+		    //获取原始数据
+			//$xml = file_get_contents('php:input');
  			// 把xml转化为对象
-	 		$obj = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
-	 		echo $obj->Content."\n";
-	 		var_dump($obj);*/
+	 		//$obj = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
+	 		//echo $obj->Content."\n";
+	 		//var_dump($obj);
 	 		$this->config = include 'config.php';
 	 		 //接收消息方法和处理
 	 		$this->acceptMesage();
 	 	}
 	 }
-
-
 	 /**
 	  * 接受消息处理
-	 */
+	  */
 	 private function acceptMesage(){
 	 	// 获取公众平台发送过来的xml数据
-	 	$xml = file_get_contents('php:input');
+	 	$xml = file_get_contents('php://input');
 	 	 //写接受日志
 	 	$this->writeLog($xml);
 
@@ -60,7 +58,7 @@ class wx {
 	 	 //一般在框架底层用到
 	 	echo $msg = call_user_func([$this,$funName]);
 
-
+	 }
 	 	/*switch ($type) {
 	 		case 'text':  文本消息
 
@@ -74,16 +72,14 @@ class wx {
 	 		case 'voice':
 	 			# code...
 	 			break;
-	 		}*/
+	 		}
 	 		 //写发送日志
 	 		if (!empty($msg)) {
 	 			$this->writeLog($msg,1);
 	 		}
-	 	}
-
-	 /**
-	  * 文本消息处理方法
-	  */
+		}
+*/
+	 //文本消息处理方法
 	 private function textFun(){
 	 	$content = (string)$this->obj->Content;
 	 	if (stristr($content,'图文-')) {
@@ -94,21 +90,12 @@ class wx {
 	 	// 响应给公众号服务器
 	 	return $this->createText($content);
 	 }
-
-
-	 /**
-	  * 生成文本消息的xml
-	  */
+	  //* 生成文本消息的xml
 	 private function createText(string $content){
 	 	return sprintf($this->config['text'],$this->obj->FromUserName,$this->obj->ToUserName,time(),"服务器：".$content);
 	 }
 
-
-
-
-
-
-	 /**
+	 /*
 	  * 写日志
 	  * @param  string      $xml  xml数据
 	  * @param  int|integer $flag 0 接受  1 发送
@@ -127,12 +114,11 @@ class wx {
 	 	file_put_contents('wx.xml',$log,FILE_APPEND);
 	 }
 
-		 // echo checkSignature();
+	 // echo checkSignature();
 	/**
 	 * 初次接入验证
 	 * @return string
 	 */
-	
 
 	function checkSignature(){
 		# 公众平台传过来的数据
